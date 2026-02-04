@@ -4,8 +4,8 @@ All environment variables are loaded and validated here.
 """
 
 from pydantic_settings import BaseSettings
-from pydantic import Field, validator
-from typing import Optional
+from pydantic import Field, validator, field_validator
+from typing import Optional, List, Any
 import secrets
 
 
@@ -21,6 +21,7 @@ class Settings(BaseSettings):
     # Server
     HOST: str = "0.0.0.0"
     PORT: int = 8000
+    DOMAIN: str #gemini
     
     # Supabase
     SUPABASE_URL: str
@@ -30,6 +31,7 @@ class Settings(BaseSettings):
     # AI Services
     GROQ_API_KEY: str
     DEEPSEEK_API_KEY: Optional[str] = None
+    DEEPSEEK_BASE_URL: str = "https://api.deepseek.com" # gemini
     CARTESIA_API_KEY: str
     
     # Twilio
@@ -51,26 +53,33 @@ class Settings(BaseSettings):
     # Voice Agent Configuration
     AGENT_NAME: str = "Kylie"
     AGENT_VOICE: str = "female-1"
-    AGENT_SPEED: float = 1.1
+    AGENT_VOICE_ID: str                    #gemini
+    AGENT_SPEED: float = 1.0
     STT_MODEL: str = "whisper-large-v3"
     LLM_MODEL: str = "deepseek-chat"
     TTS_MODEL: str = "sonic-english"
     
     # Security
     API_SECRET_KEY: str = Field(default_factory=lambda: secrets.token_urlsafe(32))
-    ALLOWED_ORIGINS: str = "http://localhost:3000"
+    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000"]
     
     # Rate Limiting
     RATE_LIMIT_PER_MINUTE: int = 60
     MAX_CALL_DURATION_MINUTES: int = 15
     
-    @validator("ALLOWED_ORIGINS")
-    def parse_origins(cls, v):
+    @field_validator("ALLOWED_ORIGINS", mode="before")
+    @classmethod
+    def parse_origins(cls, v: Any) -> List[str]:
         """Parse comma-separated origins into a list."""
-        return [origin.strip() for origin in v.split(",")]
+        if isinstance(v, list):
+            return v
+        if isinstance(v, str) and not v.startswith("["):
+            return [origin.strip() for origin in v.split(",")]
+        return v
     
     class Config:
         env_file = ".env"
+        extra = "ignore" #gemini
         case_sensitive = True
 
 
