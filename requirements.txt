@@ -1,37 +1,40 @@
 # Core Framework
-fastapi==0.109.0
-uvicorn[standard]==0.27.0
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
 python-dotenv==1.0.0
+loguru>=0.7.2  # Essential for debugging voice latency
 
 # Database
-supabase==2.3.4
-asyncpg==0.29.0
-sqlalchemy==2.0.25
+supabase>=2.3.4
+asyncpg>=0.29.0
+sqlalchemy>=2.0.25
 
-# AI Services
-groq==0.4.1
-openai==1.10.0
-cartesia==1.0.3
+# AI Services & SDKs
+# Note: DeepSeek uses the 'openai' client
+openai>=1.12.0
+groq>=0.4.2
+cartesia>=1.0.0
 
-# Voice Processing
-pipecat-ai==0.0.35
-websockets==12.0
+# Voice Processing (The Critical Fix)
+# We install pipecat with the specific extras we need
+pipecat-ai[twilio,silero,groq,openai,cartesia]>=0.0.50
+websockets>=12.0
 
 # Twilio
-twilio==8.11.0
+twilio>=8.11.0
 
 # Google Calendar
-google-auth==2.27.0
-google-auth-oauthlib==1.2.0
-google-auth-httplib2==0.2.0
-google-api-python-client==2.115.0
+google-auth>=2.27.0
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+google-api-python-client>=2.115.0
 
 # Utilities
-pydantic==2.5.3
-pydantic-settings==2.1.0
-httpx==0.26.0
-aiohttp==3.9.1
-python-multipart==0.0.6
+pydantic>=2.6.0
+pydantic-settings>=2.1.0
+httpx>=0.27.0
+aiohttp>=3.9.1
+python-multipart>=0.0.9
 
 # Testing
 pytest==7.4.4
@@ -40,4 +43,4 @@ pytest-cov==4.1.0
 httpx==0.26.0
 
 # Production
-gunicorn==21.2.0
+gunicorn>=21.2.0
