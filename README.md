@@ -1,4 +1,6 @@
-# AI Receptionist - Complete Project Guide
+🤖 AI Receptionist — Voice-Based Appointment Booking Assistant
+An AI-powered voice receptionist that can answer phone calls, understand appointment requests, manage client details, check calendar availability, and book appointments automatically.
+This project is designed as a lower-cost, customizable alternative to hosted AI receptionist platforms by using a custom backend with FastAPI, Twilio, WebSockets, LLM APIs, Supabase, Google Calendar, and Docker.
 
 ## 🎯 Project Overview
 
