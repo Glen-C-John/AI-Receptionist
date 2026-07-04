@@ -1,384 +1,532 @@
 # 🤖 AI Receptionist — Voice-Based Appointment Booking Assistant
 
 An AI-powered voice receptionist that can answer phone calls, understand appointment requests, manage client details, check calendar availability, and book appointments automatically.
-This project is designed as a lower-cost, customizable alternative to hosted AI receptionist platforms by using a custom backend with FastAPI, Twilio, WebSockets, LLM APIs, Supabase, Google Calendar, and Docker.
+
+This project is designed to reduce reliance on hosted AI receptionist platforms by using a custom backend architecture with **FastAPI, Twilio, WebSockets, LLM APIs, Supabase, Google Calendar, and Docker**.
+
+---
+
+## 📌 Project Status
+
+This project is currently under active development and is structured as a practical AI voice automation system for appointment-based businesses.
+
+### Current Focus
+
+* Voice call handling using Twilio
+* Real-time audio streaming with WebSockets
+* AI-powered conversation flow
+* Appointment booking workflow
+* Supabase-based data storage
+* Google Calendar integration
+* Docker-based deployment setup
+
+### Planned Improvements
+
+* Admin dashboard for managing calls and appointments
+* SMS/email appointment confirmations
+* Human handoff support
+* Call analytics dashboard
+* Production monitoring
+* Multi-business support
+
+---
 
 ## 🎯 Project Overview
 
-AI Receptionist helps businesses automate phone-based appointment handling.
+AI Receptionist helps appointment-based businesses automate phone call handling.
 
 Instead of manually answering every call, the system can:
 
-- Receive incoming calls through Twilio
-- Stream call audio in real time using WebSockets
-- Convert speech to text
-- Generate intelligent responses using an LLM
-- Convert responses back to voice
-- Store client and call information
-- Check Google Calendar availability
-- Book appointments automatically
-- Track call logs, transcripts, and appointment details
+* Receive incoming calls through Twilio
+* Stream call audio in real time using WebSockets
+* Convert speech to text
+* Generate intelligent responses using an LLM
+* Convert responses back to voice
+* Store client and call information
+* Check Google Calendar availability
+* Book appointments automatically
+* Track call logs, transcripts, and appointment details
 
-This project focuses on building a practical AI voice assistant that can be extended for clinics, salons, consultants, agencies, service businesses, and appointment-based workflows.
-
-Transform your VAPI + n8n AI receptionist into a production-ready, near-zero-cost system using open-source alternatives.
-
-**Current Cost:** ~$50-100/month (VAPI + n8n + various services)
-**New Cost:** ~$2-6/month (only Twilio telephony)
-**Savings:** 95-98% cost reduction
+This project can be extended for clinics, salons, consultants, agencies, service businesses, and other appointment-based workflows.
 
 ---
 
+## 💡 Why This Project?
+
+Many hosted AI receptionist platforms can become expensive when combined with workflow automation tools and third-party services.
+
+This project explores a more customizable and cost-efficient approach by using a custom backend and low-cost API services.
+
+### Estimated Cost Comparison
+
+| System                                             | Estimated Monthly Cost |
+| -------------------------------------------------- | ---------------------: |
+| Hosted AI receptionist + workflow automation tools |          $60–100/month |
+| Custom backend with Twilio and low-cost APIs       |             $2–6/month |
+
+> Cost estimates are approximate and may vary depending on call duration, API pricing, region, provider changes, and usage volume.
+
 ---
 
-## 🚀 Quick Start (TL;DR)
+## ✨ Key Features
 
-### Prerequisites:
+### 📞 Voice Call Handling
+
+* Incoming call support using Twilio
+* Twilio webhook integration
+* WebSocket-based audio streaming
+* Call session management
+* Call status tracking
+
+### 🧠 AI Conversation Flow
+
+* Speech-to-text transcription
+* LLM-powered response generation
+* Context-aware conversation handling
+* Appointment intent detection
+* Slot filling for appointment details
+* Natural text-to-speech voice responses
+
+### 📅 Appointment Booking
+
+* Google Calendar availability checking
+* Appointment creation workflow
+* Date and time handling
+* Booking confirmation flow
+* Client appointment history support
+
+### 🗄️ Client & Call Management
+
+* Client lookup by phone/email
+* New client onboarding support
+* Supabase database integration
+* Call logs and transcripts
+* Appointment records
+* Future analytics support
+
+### 🐳 Deployment Ready Structure
+
+* FastAPI backend
+* Docker-based setup
+* Environment variable configuration
+* Health check endpoints
+* Modular service-based architecture
+
+---
+
+## 🛠️ Tech Stack
+
+| Category                | Technology                              |
+| ----------------------- | --------------------------------------- |
+| Backend                 | Python, FastAPI                         |
+| Voice / Telephony       | Twilio                                  |
+| Real-Time Communication | WebSockets                              |
+| AI / LLM                | DeepSeek / Groq / LLM API integration   |
+| Speech-to-Text          | Groq Whisper / STT API                  |
+| Text-to-Speech          | Cartesia / TTS API                      |
+| Database                | Supabase                                |
+| Calendar                | Google Calendar API                     |
+| Deployment              | Docker, Railway / Fly.io / Oracle Cloud |
+| Testing                 | Pytest                                  |
+| Local Webhook Testing   | ngrok                                   |
+
+---
+
+## 🏗️ System Architecture
+
+```text
+Incoming Phone Call
+        │
+        ▼
+     Twilio
+        │
+        ▼
+ WebSocket Audio Stream
+        │
+        ▼
+ FastAPI Backend
+        │
+        ├── Conversation Manager
+        ├── Intent Detection
+        ├── Speech-to-Text
+        ├── LLM Response Generation
+        ├── Text-to-Speech
+        ├── Supabase Database
+        └── Google Calendar API
+        │
+        ▼
+ Voice Response to Caller
+```
+
+---
+
+## 📂 Project Structure
+
+```text
+AI-Receptionist/
+│
+├── app/
+│   ├── main.py                 # FastAPI application entry point
+│   ├── config.py               # Environment/configuration handling
+│   ├── routes/                 # API routes and webhook endpoints
+│   ├── services/               # Twilio, AI, calendar, and database services
+│   ├── models/                 # Data models and schemas
+│   ├── utils/                  # Helper functions
+│   └── websocket/              # WebSocket audio streaming logic
+│
+├── tests/                      # Test files
+├── docs/                       # Additional documentation
+├── scripts/                    # Utility scripts
+├── Dockerfile                  # Docker image configuration
+├── docker-compose.yml          # Docker Compose setup
+├── requirements.txt            # Python dependencies
+├── .env.example                # Example environment variables
+├── .gitignore
+└── README.md
+```
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the root directory and add your configuration values.
+
+```env
+# Application
+APP_NAME=AI Receptionist
+APP_ENV=development
+APP_PORT=8000
+
+# Twilio
+TWILIO_ACCOUNT_SID=your_twilio_account_sid
+TWILIO_AUTH_TOKEN=your_twilio_auth_token
+TWILIO_PHONE_NUMBER=your_twilio_phone_number
+
+# AI / LLM
+LLM_API_KEY=your_llm_api_key
+LLM_MODEL=your_model_name
+
+# Speech Services
+STT_API_KEY=your_speech_to_text_api_key
+TTS_API_KEY=your_text_to_speech_api_key
+
+# Supabase
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_KEY=your_supabase_service_key
+
+# Google Calendar
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_REFRESH_TOKEN=your_google_refresh_token
+GOOGLE_CALENDAR_ID=your_calendar_id
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
 ```bash
-# Install Python 3.11+
-python --version
+git clone https://github.com/Glen-C-John/AI-Receptionist.git
+cd AI-Receptionist
+```
 
-# Install dependencies
+### 2. Create a Virtual Environment
+
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+For Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+### 3. Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-# Copy environment template
+### 4. Configure Environment Variables
+
+```bash
 cp .env.example .env
-# Edit .env with your API keys
 ```
 
-### Setup Accounts (Free Tier):
-1. **Supabase** (Database) - https://supabase.com
-2. **Groq** (STT + LLM fallback) - https://groq.com
-3. **DeepSeek** (Primary LLM) - https://platform.deepseek.com
-4. **Cartesia** (TTS) - https://cartesia.ai
-5. **Twilio** (Telephony - PAID ~$1.15/mo) - https://twilio.com
-6. **Google Cloud** (Calendar) - https://console.cloud.google.com
-7. **Railway** (Hosting - Free tier) - https://railway.app
+Then update `.env` with your own API keys and service credentials.
 
-### Local Development:
+### 5. Run the FastAPI Server
+
 ```bash
-# Run the application
-python -m app.main
-
-# In another terminal, start ngrok for Twilio webhook
-ngrok http 8000
-
-# Update Twilio webhook to ngrok URL
-```
-
-### Production Deployment:
-```bash
-# Option 1: Railway
-railway login
-railway init
-railway up
-
-# Option 2: Fly.io
-flyctl launch
-flyctl deploy
-
-# Option 3: Oracle Cloud (Best free tier)
-# See PART_5_DEPLOYMENT.md for detailed steps
-```
-
----
-
-## 💰 Cost Comparison
-
-### Original System (VAPI + n8n):
-| Component | Cost |
-|-----------|------|
-| VAPI | $30-50/month |
-| n8n Cloud | $20/month |
-| Various APIs | $10-30/month |
-| **Total** | **$60-100/month** |
-
-### New System (Open Source):
-| Component | Service | Cost |
-|-----------|---------|------|
-| Hosting | Railway/Oracle | $0-5 |
-| Database | Supabase | $0 |
-| STT | Groq Whisper | $0 |
-| LLM | DeepSeek | $0 |
-| TTS | Cartesia | $0 |
-| Calendar | Google | $0 |
-| Telephony | Twilio | $1.15 + $0.005/min |
-| **Total** | | **$1.15-6/month** |
-
-**For 100 calls at 3 min each: ~$2.65/month**
-**Savings: ~$97/month (97% reduction)**
-
----
-
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                     Phone Call                          │
-│                         ↓                               │
-│                   Twilio                                │
-│                         ↓                               │
-│                   WebSocket                             │
-│                         ↓                               │
-├─────────────────────────────────────────────────────────┤
-│              FastAPI Backend                            │
-│  ┌──────────────────────────────────────────────────┐  │
-│  │           Voice Agent Core                        │  │
-│  │  - Conversation Manager                           │  │
-│  │  - State Machine                                  │  │
-│  │  - Intent Detection                               │  │
-│  └──────────────────────────────────────────────────┘  │
-│                         ↓                               │
-│  ┌──────────┬──────────┬──────────┬─────────────────┐  │
-│  │   STT    │   LLM    │   TTS    │   Calendar      │  │
-│  │  (Groq)  │(DeepSeek)│(Cartesia)│   (Google)      │  │
-│  └──────────┴──────────┴──────────┴─────────────────┘  │
-│                         ↓                               │
-│                   Supabase DB                           │
-│  ┌──────────┬────────────────┬──────────────────────┐  │
-│  │ Clients  │  Appointments  │     Call Logs        │  │
-│  └──────────┴────────────────┴──────────────────────┘  │
-└─────────────────────────────────────────────────────────┘
-```
-
----
-
-## 🎯 Key Features Implemented
-
-### 1. **Client Management**
-- Automatic client lookup by email/phone
-- New client onboarding
-- CRM database integration
-
-### 2. **Appointment Booking**
-- Real-time availability checking
-- Google Calendar integration
-- Booking confirmation via email
-- Support for interior/exterior/full detailing
-
-### 3. **Conversation Intelligence**
-- Natural language understanding
-- Intent detection
-- Slot filling for appointment details
-- Context-aware responses
-
-### 4. **Call Handling**
-- Incoming call management
-- WebSocket audio streaming
-- Real-time transcription
-- Natural TTS responses
-
-### 5. **Data & Analytics**
-- Call logging
-- Conversation transcripts
-- Performance metrics
-- Cost tracking
-
-
----
-
-## 🔧 Essential Commands
-
-### Development:
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Run locally
-python -m app.main
-
-# Run with auto-reload
 uvicorn app.main:app --reload
+```
 
-# Test webhooks locally
+The backend will run at:
+
+```text
+http://localhost:8000
+```
+
+API documentation:
+
+```text
+http://localhost:8000/docs
+```
+
+---
+
+## 📞 Local Twilio Webhook Testing
+
+For local development, use ngrok to expose your FastAPI server:
+
+```bash
 ngrok http 8000
 ```
 
-### Testing:
-```bash
-# Run all tests
-pytest
+Then update your Twilio webhook URL with the generated ngrok URL.
 
-# Run with coverage
-pytest --cov=app tests/
+Example:
 
-# Run specific test
-pytest tests/test_voice_agent.py -v
+```text
+https://your-ngrok-url.ngrok-free.app/twilio/voice
 ```
 
-### Docker:
+---
+
+## 🐳 Run with Docker
+
+Build the Docker image:
+
 ```bash
-# Build image
 docker build -t ai-receptionist .
+```
 
-# Run container
+Run the container:
+
+```bash
 docker run -p 8000:8000 --env-file .env ai-receptionist
+```
 
-# Using docker-compose
-docker-compose up -d
-docker-compose logs -f
+Or use Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+To stop the containers:
+
+```bash
 docker-compose down
 ```
 
-### Deployment:
-```bash
-# Railway
-railway up
+---
 
-# Fly.io
-flyctl deploy
+## 🔌 Core API Endpoints
 
-# Check production health
-curl https://your-domain.com/health
+| Method | Endpoint        | Description                        |
+| ------ | --------------- | ---------------------------------- |
+| `GET`  | `/health`       | Check backend health               |
+| `GET`  | `/health/ready` | Check service readiness            |
+| `POST` | `/twilio/voice` | Handle incoming Twilio voice calls |
+| `WS`   | `/ws/audio`     | Real-time audio streaming endpoint |
+| `POST` | `/appointments` | Create appointment record          |
+| `GET`  | `/appointments` | Fetch appointment records          |
+| `GET`  | `/clients`      | Fetch client records               |
+| `GET`  | `/calls`        | Fetch call logs                    |
+
+---
+
+## 📞 Twilio Call Flow
+
+```text
+1. Caller dials the Twilio phone number
+2. Twilio forwards the call to the FastAPI webhook
+3. FastAPI returns TwiML and starts the call flow
+4. Audio is streamed through WebSockets
+5. Caller speech is converted to text
+6. The LLM generates a suitable response
+7. The response is converted back into voice
+8. The caller receives the AI-generated voice reply
+9. Appointment details are stored in Supabase
+10. Booking details are synced with Google Calendar
 ```
 
 ---
 
-## 🐛 Common Issues & Solutions
+## 🧠 AI Conversation Example
 
-### Issue: WebSocket won't connect
-**Solution:** Ensure your production URL uses `wss://` (not `ws://`) and that your reverse proxy is configured for WebSocket upgrade.
+```text
+Caller:
+"Hi, I want to book an appointment for tomorrow evening."
 
-### Issue: Google Calendar events not creating
-**Solution:** Verify OAuth scopes include Calendar API and credentials file is in correct location.
+AI Receptionist:
+"Sure, I can help with that. May I know your name and preferred time?"
 
-### Issue: Audio quality poor
-**Solution:** Check network bandwidth, reduce TTS bitrate in config, ensure server has sufficient CPU.
-
-### Issue: Calls timeout after 10 seconds
-**Solution:** Twilio requires webhook response within 10s. Ensure TwiML is returned immediately, don't do heavy processing before responding.
-
-### Issue: Database connection errors
-**Solution:** Check Supabase credentials, verify IP allowlist if configured, ensure connection pool isn't exhausted.
+System Flow:
+1. Detects appointment booking intent
+2. Extracts preferred date and time
+3. Collects missing client details
+4. Checks Google Calendar availability
+5. Confirms the appointment
+6. Stores the booking in Supabase
+7. Creates the event in Google Calendar
+```
 
 ---
 
-## 📊 Monitoring & Maintenance
+## 🗃️ Database Design
 
-### Health Checks:
+The system can store structured records for clients, calls, and appointments.
+
+### Clients
+
+```text
+client_id
+name
+phone_number
+email
+created_at
+```
+
+### Calls
+
+```text
+call_id
+client_id
+twilio_call_sid
+call_status
+transcript
+started_at
+ended_at
+```
+
+### Appointments
+
+```text
+appointment_id
+client_id
+title
+appointment_date
+appointment_time
+status
+google_calendar_event_id
+created_at
+```
+
+---
+
+## 🧪 Testing
+
+Run all tests:
+
 ```bash
-# Basic health
-curl https://your-domain.com/health
+pytest
+```
 
-# Readiness check
+Run tests with coverage:
+
+```bash
+pytest --cov=app tests/
+```
+
+Recommended test coverage:
+
+* Health check endpoint
+* Twilio webhook response
+* WebSocket connection handling
+* Appointment creation logic
+* Google Calendar availability check
+* Supabase client storage
+* LLM response formatting
+
+---
+
+## 📊 Monitoring
+
+Basic health check:
+
+```bash
+curl https://your-domain.com/health
+```
+
+Readiness check:
+
+```bash
 curl https://your-domain.com/health/ready
-
-# Metrics
-curl https://your-domain.com/health/metrics
 ```
 
-### Log Analysis:
+View Docker logs:
+
 ```bash
-# View live logs
 docker-compose logs -f
-
-# Check for errors
-docker-compose logs | grep ERROR
-
-# Twilio call logs
-# Check in Twilio Console → Monitor → Logs → Calls
 ```
 
-### Cost Monitoring:
-```bash
-# Run cost estimation script
-python scripts/check_costs.py
+Check Twilio call logs:
 
-# Check Twilio usage
-# Twilio Console → Monitor → Usage
+```text
+Twilio Console → Monitor → Logs → Calls
 ```
 
 ---
 
-## 🚀 Optimization Tips
+## 🔒 Security Notes
 
-### 1. **Reduce Latency:**
-- Use streaming TTS instead of full generation
-- Cache frequent responses
-- Use connection pooling
-- Enable HTTP/2 if possible
-
-### 2. **Reduce Costs:**
-- Use lower TTS bitrate for acceptable quality
-- Optimize LLM prompts to use fewer tokens
-- Batch database operations
-- Use efficient query indexes
-
-### 3. **Improve Reliability:**
-- Implement retry logic for API calls
-- Use circuit breakers for external services
-- Set up health checks and auto-restart
-- Monitor error rates
-
-### 4. **Scale Efficiently:**
-- Use horizontal scaling (multiple instances)
-- Implement rate limiting
-- Use background tasks for heavy operations
-- Consider message queue for high volume
+* Validate incoming Twilio webhook requests
+* Avoid logging sensitive client information
+* Use HTTPS in production
+* Use `wss://` for production WebSocket connections
+* Restrict database access using proper Supabase policies
+* Store secrets using hosting-provider environment variables
 
 ---
 
-## 🎓 Learning Resources
+## 🛣️ Future Improvements
 
-### FastAPI:
-- Official Docs: https://fastapi.tiangolo.com
-- Tutorial: https://fastapi.tiangolo.com/tutorial/
-
-### Twilio:
-- Media Streams: https://www.twilio.com/docs/voice/media-streams
-- TwiML: https://www.twilio.com/docs/voice/twiml
-
-### Supabase:
-- Python Client: https://supabase.com/docs/reference/python
-- Database: https://supabase.com/docs/guides/database
-
-### Google Calendar API:
-- Python Quickstart: https://developers.google.com/calendar/api/quickstart/python
+* Admin dashboard for appointments and call logs
+* SMS/email appointment confirmation
+* Human handoff option
+* Advanced appointment rescheduling
+* Call analytics and reporting
+* Multi-business support
+* Better fallback handling
+* Production monitoring and alerting
+* Rate limiting and abuse protection
+* Background job queue for heavy processing
 
 ---
 
-## 📞 Support
-
-### Getting Help:
-1. Check `docs/TROUBLESHOOTING.md`
-2. Review logs for error messages
-3. Search GitHub issues
-4. Check service status pages:
-   - Twilio: https://status.twilio.com
-   - Supabase: https://status.supabase.com
-   - Groq: https://status.groq.com
-
-### Contributing:
-- Fork the repository
-- Create a feature branch
-- Make your changes
-- Submit a pull request
-
----
-
-🎯 What I Learned
+## 🎯 What I Learned
 
 Through this project, I worked with:
-FastAPI backend development
-Twilio voice call webhooks
-WebSocket-based real-time audio streaming
-LLM-based conversation design
-Speech-to-text and text-to-speech pipelines
-Supabase database integration
-Google Calendar API integration
-Dockerized backend deployment
-Secure environment variable management
-Designing AI automation systems for real business use cases
+
+* FastAPI backend development
+* Twilio voice call webhooks
+* WebSocket-based real-time audio streaming
+* LLM-based conversation design
+* Speech-to-text and text-to-speech pipelines
+* Supabase database integration
+* Google Calendar API integration
+* Dockerized backend deployment
+* Secure environment variable management
+* Designing AI automation systems for real business use cases
 
 ---
 
-👨‍💻 Developer
--Glen John Chazhur
--Information Technology Engineering Graduate
--Full Stack Developer focused on MERN, cloud deployment, backend APIs, and AI-powered applications.
--GitHub: Glen-C-John
+## 👨‍💻 Developer
+
+**Glen John Chazhur**
+Information Technology Engineering Graduate
+Full Stack Developer focused on MERN, cloud deployment, backend APIs, and AI-powered applications.
+
+GitHub: [Glen-C-John](https://github.com/Glen-C-John)
 
 ---
 
-⭐ Support
+## ⭐ Support
+
 If you found this project useful or interesting, consider giving it a star.
+
