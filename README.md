@@ -1,8 +1,24 @@
-🤖 AI Receptionist — Voice-Based Appointment Booking Assistant
+#🤖 AI Receptionist — Voice-Based Appointment Booking Assistant
+
 An AI-powered voice receptionist that can answer phone calls, understand appointment requests, manage client details, check calendar availability, and book appointments automatically.
 This project is designed as a lower-cost, customizable alternative to hosted AI receptionist platforms by using a custom backend with FastAPI, Twilio, WebSockets, LLM APIs, Supabase, Google Calendar, and Docker.
 
 ## 🎯 Project Overview
+
+AI Receptionist helps businesses automate phone-based appointment handling.
+
+Instead of manually answering every call, the system can:
+Receive incoming calls through Twilio
+Stream call audio in real time using WebSockets
+Convert speech to text
+Generate intelligent responses using an LLM
+Convert responses back to voice
+Store client and call information
+Check Google Calendar availability
+Book appointments automatically
+Track call logs, transcripts, and appointment details
+
+This project focuses on building a practical AI voice assistant that can be extended for clinics, salons, consultants, agencies, service businesses, and appointment-based workflows.
 
 Transform your VAPI + n8n AI receptionist into a production-ready, near-zero-cost system using open-source alternatives.
 
@@ -424,9 +440,20 @@ python scripts/check_costs.py
 
 ---
 
-## 📝 License
+🎯 What I Learned
 
-This project is open source and available under the MIT License.
+Through this project, I worked with:
+FastAPI backend development
+Twilio voice call webhooks
+WebSocket-based real-time audio streaming
+LLM-based conversation design
+Speech-to-text and text-to-speech pipelines
+Supabase database integration
+Google Calendar API integration
+Dockerized backend deployment
+Secure environment variable management
+Designing AI automation systems for real business use cases
+
 
 ---
 
@@ -446,3 +473,16 @@ Each part has complete, production-ready code you can copy and use.
 **Features:** Full AI receptionist with CRM, calendar, and voice AI
 
 Good luck! 🚀
+
+---
+
+👨‍💻 Developer
+Glen John Chazhur
+Information Technology Engineering Graduate
+Full Stack Developer focused on MERN, cloud deployment, backend APIs, and AI-powered applications.
+GitHub: Glen-C-John
+
+---
+
+⭐ Support
+If you found this project useful or interesting, consider giving it a star.
